@@ -4,7 +4,7 @@
 
 const roku = jest.genMockFromModule('roku-client');
 
-class Client {
+class RokuClient {
   constructor(ip, apps, info) {
     this.ip = ip;
     this._activeApp = null;
@@ -73,20 +73,20 @@ class Client {
   }
 }
 
-let CLIENT = new Client();
+let CLIENT = new RokuClient();
 
 function __setClient(ip, apps, info) {
-  CLIENT = new Client(ip, apps, info);
+  CLIENT = new RokuClient(ip, apps, info);
 }
 
 function discover() {
   return Promise.resolve(CLIENT.ip);
 }
 
-Client.discover = () => Promise.resolve(CLIENT);
+RokuClient.discover = () => Promise.resolve(CLIENT);
 
 roku.discover = discover;
 roku.__setClient = __setClient;
-roku.Client = Client;
+roku.RokuClient = RokuClient;
 
 module.exports = roku;

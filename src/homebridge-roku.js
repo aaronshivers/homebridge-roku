@@ -1,6 +1,6 @@
 'use strict';
 
-const { Client, keys } = require('roku-client');
+const { RokuClient, Keys } = require('roku-client');
 const plugin = require('../package');
 
 let hap;
@@ -25,7 +25,7 @@ class RokuAccessory {
 
     this.info = config.info;
     this.inputs = config.inputs;
-    this.roku = new Client(config.ip);
+    this.roku = new RokuClient(config.ip);
     this.services = [];
 
     this.volumeIncrement = config.volumeIncrement || DEFAULT_VOLUME_INCREMENT;
@@ -33,14 +33,14 @@ class RokuAccessory {
 
     this.muted = false;
 
-    let infoButton = keys.INFO;
+    let infoButton = Keys.INFO;
     if (config.infoButtonOverride) {
-      const override = keys[config.infoButtonOverride];
+      const override = Keys[config.infoButtonOverride];
       if (!override) {
         throw new Error(
           `Invalid value "${
             config.infoButtonOverride
-          }" for infoButtonOverride, must be one of ${Object.keys(keys).join(
+          }" for infoButtonOverride, must be one of ${Object.keys(Keys).join(
             ', ',
           )}`,
         );
@@ -49,18 +49,18 @@ class RokuAccessory {
     }
 
     this.buttons = {
-      [Characteristic.RemoteKey.REWIND]: keys.REVERSE,
-      [Characteristic.RemoteKey.FAST_FORWARD]: keys.FORWARD,
-      [Characteristic.RemoteKey.NEXT_TRACK]: keys.REVERSE,
-      [Characteristic.RemoteKey.PREVIOUS_TRACK]: keys.FORWARD,
-      [Characteristic.RemoteKey.ARROW_UP]: keys.UP,
-      [Characteristic.RemoteKey.ARROW_DOWN]: keys.DOWN,
-      [Characteristic.RemoteKey.ARROW_LEFT]: keys.LEFT,
-      [Characteristic.RemoteKey.ARROW_RIGHT]: keys.RIGHT,
-      [Characteristic.RemoteKey.SELECT]: keys.SELECT,
-      [Characteristic.RemoteKey.BACK]: keys.BACK,
-      [Characteristic.RemoteKey.EXIT]: keys.HOME,
-      [Characteristic.RemoteKey.PLAY_PAUSE]: keys.PLAY,
+      [Characteristic.RemoteKey.REWIND]: Keys.REVERSE,
+      [Characteristic.RemoteKey.FAST_FORWARD]: Keys.FORWARD,
+      [Characteristic.RemoteKey.NEXT_TRACK]: Keys.REVERSE,
+      [Characteristic.RemoteKey.PREVIOUS_TRACK]: Keys.FORWARD,
+      [Characteristic.RemoteKey.ARROW_UP]: Keys.UP,
+      [Characteristic.RemoteKey.ARROW_DOWN]: Keys.DOWN,
+      [Characteristic.RemoteKey.ARROW_LEFT]: Keys.LEFT,
+      [Characteristic.RemoteKey.ARROW_RIGHT]: Keys.RIGHT,
+      [Characteristic.RemoteKey.SELECT]: Keys.SELECT,
+      [Characteristic.RemoteKey.BACK]: Keys.BACK,
+      [Characteristic.RemoteKey.EXIT]: Keys.HOME,
+      [Characteristic.RemoteKey.PLAY_PAUSE]: Keys.PLAY,
       [Characteristic.RemoteKey.INFORMATION]: infoButton,
     };
 
@@ -217,14 +217,14 @@ class RokuAccessory {
         if (newValue === Characteristic.VolumeSelector.INCREMENT) {
           this.roku
             .command()
-            .keypress(keys.VOLUME_UP, this.volumeIncrement)
+            .keypress(Keys.VOLUME_UP, this.volumeIncrement)
             .send()
             .then(() => callback(null))
             .catch(callback);
         } else {
           this.roku
             .command()
-            .keypress(keys.VOLUME_DOWN, this.volumeDecrement)
+            .keypress(Keys.VOLUME_DOWN, this.volumeDecrement)
             .send()
             .then(() => callback(null))
             .catch(callback);

@@ -7,7 +7,7 @@ const { EventEmitter } = require('events');
 
 const HEADERS = {};
 
-class Client extends EventEmitter {
+class RokuClient extends EventEmitter {
   search(key) {
     setImmediate(() => {
       this.emit('response', HEADERS[key]);
@@ -19,7 +19,7 @@ function __setResponseHeaders(key, headers) {
   HEADERS[key] = headers;
 }
 
-nodeSSDP.Client = Client;
+nodeSSDP.RokuClient = RokuClient;
 nodeSSDP.__setResponseHeaders = __setResponseHeaders;
 
 module.exports = nodeSSDP;

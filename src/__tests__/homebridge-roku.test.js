@@ -1,7 +1,7 @@
 'use strict';
 
 const hap = require('hap-nodejs');
-const { keys } = require('roku-client');
+const { Keys } = require('roku-client');
 const setupService = require('../homebridge-roku');
 
 describe('homebridge-roku', () => {
@@ -128,7 +128,7 @@ describe('homebridge-roku', () => {
       infoButtonOverride: 'HOME',
     });
     expect(acc.buttons[hap.Characteristic.RemoteKey.INFORMATION]).toEqual(
-      keys.HOME,
+      Keys.HOME,
     );
   });
 
