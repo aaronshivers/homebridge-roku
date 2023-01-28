@@ -9,7 +9,8 @@
     "test:watch": "jest --watch",
     "start": "./scripts/setup.js && DEBUG=* homebridge -D -U . -P .",
     "release": "standard-version",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run test",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=10.17.0",
@@ -39,8 +40,8 @@
     "roku-client": "^4.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
     "@types/jest": "^26.0.14",
     "eslint": "^7.10.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -48,14 +49,9 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "hap-nodejs": "^0.8.2",
-    "husky": "^4.3.0",
+    "husky": "^8.0.0",
     "jest": "^26.4.2",
     "prettier": "^2.1.2",
     "standard-version": "^9.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }
